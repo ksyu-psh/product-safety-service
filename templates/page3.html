@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Пользовательский интерфейс</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style_page2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+</head>
+
+<body>
+
+    <div class="main">
+        <h1>Рекомендательный отчёт готов!</h1>
+
+        <form class="form_" action="/" method="post" enctype="multipart/form-data">
+            <label for="fileInput" class="custom-file-upload">
+                Загрузить новый файл
+            </label>
+            <input type="submit" value="В начало" id="submitButton">
+            <input type="file" name="file" id="fileInput">
+            <input type="submit" value="Далее" id="submitButton">
+            <div id="fileInfo" style="text-align: center;">
+                <div id="fileDetails">
+                    <img id='logo_csv' style="max-width: 200px; max-height: 200px;">
+                    <p id="fileNameDisplay"></p>
+                </div>
+            </div>
+
+
+        </form>
+        <p>Фильтр по "Наименованию продукции"</p>
+        <form action="/search" method="post">
+            <input class="custom-filter" type="text" name="query" placeholder="Введите запрос">
+            <input type="submit" value="Поиск">
+        </form>
+        <form action="/download" method="post">
+            <input type="submit" value="Скачать">
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Обозначение стандарта</th>
+                    <th>Группа продукции</th>
+                    <th>Наименование продукции</th>
+                    <th>Коды ОКПД 2 / ТН ВЭД ЕАЭС</th>
+                    <th>Техническое оборудование</th>
+                    <th>Рекомендации по ТО</th>
+                    <th>Верно/Неверно</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in data.iterrows() %}
+                <tr>
+                    <td>{{ row['id'] }}</td>
+                    <td>{{ row['Обозначение стандарта'] }}</td>
+                    <td>{{ row['Группа продукции'] }}</td>
+                    <td>{{ row['Наименование продукции'] }}</td>
+                    <td>{{ row['Коды ОКПД 2 / ТН ВЭД ЕАЭС'] }}</td>
+                    <td>{{ row['Техническое оборудование'] }}</td>
+                    <td>{{ row['Рекомендации по ТО'] }}</td>
+                    <td>{{ row['Верно/Неверно'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="info_row" style="width: 100%; text-align: center;">
+            <p>Количество строк: {{ data.shape[0] }}</p>
+        </div>
+
+
+        <script type="text/javascript">
+            const fileInput = document.getElementById('fileInput');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            const logo = document.getElementById('logo_csv');
+            const fileDetails = document.getElementById('fileDetails');
+
+            fileInput.addEventListener('change', function () {
+                if (fileInput.files.length > 0) {
+                    fileNameDisplay.innerText = `Выбран файл: ${fileInput.files[0].name}`;
+                    logo.src = "data:image/png;base64,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";
+                    logo.style.width = "50%";
+                    fileDetails.style.display = 'block'; // Показать изображение и рамку после выбора файла
+                } else {
+                    fileNameDisplay.innerText = "Файл не выбран";
+                    logo.src = ""; // Очистить изображение
+                    fileDetails.style.display = 'none'; // Скрыть изображение и рамку, если файл не выбран
+                }
+
+                // Добавление стилей к элементу fileNameDisplay
+                const fileInfo = document.getElementById('fileInfo');
+                fileInfo.style.display = 'flex';
+                fileInfo.style.flexDirection = 'column';
+                fileInfo.style.alignItems = 'center';
+                fileInfo.style.marginTop = '10px';
+
+                fileNameDisplay.style.width = '200px';
+                fileNameDisplay.style.color = 'black';
+                fileDetails.style.border = 'solid white 8px';
+                fileDetails.style.borderRadius = '7px';
+                fileNameDisplay.style.marginTop = '10px';
+                fileNameDisplay.style.padding = '10px';
+            });
+        </script>
+
+
+
+
+    </div>
+
+</body>
+
+</html>

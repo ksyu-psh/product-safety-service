@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Пользовательский интерфейс</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style_page2.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    </head>
+
+    <body>
+
+        <div class="main">
+            <h1>Информация о загруженном файле</h1>
+            <div style="display: flex; justify-content: center;">
+                <form class="form_" action="/" method="post" enctype="multipart/form-data">
+                    <input type="submit" value="Назад" id="submitButton">
+                    <input type="file" name="file" id="fileInput">
+                    <p id="fileNameDisplay"></p>
+                    
+                </form>
+
+                <form class="form_" action="/result" method="post" enctype="multipart/form-data">
+                    <input type="submit" value="Сформировать рекомендательный отчет" id="submitButton">
+                </form>
+            </div>
+            
+
+            <script type="text/javascript">
+                const fileInput = document.getElementById('fileInput');
+                const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+                fileInput.addEventListener('change', function() {
+                    if (fileInput.files.length > 0) {
+                        fileNameDisplay.innerText = `Выбран файл: ${fileInput.files[0].name}`;
+                    } else {
+                        fileNameDisplay.innerText = "Файл не выбран";
+                    }
+                    // Добавление стилей к элементу fileNameDisplay
+                    fileNameDisplay.style.width = '200px';
+                    fileNameDisplay.style.color = 'black';
+                    fileNameDisplay.style.border = 'solid white 1px';
+                    fileNameDisplay.style.borderRadius = '7px';
+                    fileNameDisplay.style.marginLeft = '43vw';
+                    fileNameDisplay.style.marginTop = '10px';
+                    });</script>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Обозначение стандарта</th>
+                        <th>Группа продукции</th>
+                        <th>Наименование продукции</th>
+                        <th>Коды ОКПД 2 / ТН ВЭД ЕАЭС</th>
+                        <th>Техническое оборудование</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, row in data.iterrows() %}
+                    <tr>
+                        <td>{{ row['id'] }}</td>
+                        <td>{{ row['Обозначение стандарта'] }}</td>
+                        <td>{{ row['Группа продукции'] }}</td>
+                        <td>{{ row['Наименование продукции'] }}</td>
+                        <td>{{ row['Коды ОКПД 2 / ТН ВЭД ЕАЭС'] }}</td>
+                        <td>{{ row['Техническое оборудование'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+            <div class="info_row" style="width: 100%; text-align: center;">
+                <p >Количество строк: {{ data.shape[0] }}</p>
+            </div>
+            
+
+        </div>
+        
+    </body>
+</html>

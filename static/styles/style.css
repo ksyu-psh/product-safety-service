@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    position: center;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+/*Убрать полосу прокрутки для всей страницы*/
+::-webkit-scrollbar {
+  width: 0;
+}
+
+input[type="submit"] {
+    padding: 6px 12px;
+    background-color: #e30047;
+    border-radius: 7px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 10px;
+
+}
+
+/* Скрыть и стилизовать стандартную кнопку загрузки файла */
+input[type="file"] {
+    display: none;
+}
+
+/* Стилизация выглядящей как кнопка метки */
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #e30047;
+    color: #fff;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+/* Стилизация выглядящей как кнопка метки */
+.custom-filter {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: white;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+
