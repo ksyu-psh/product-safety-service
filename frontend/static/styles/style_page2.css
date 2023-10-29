@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main h1{
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+
+    
+}
+.info_row{
+    margin-top: 20px;
+}
+table, th, td {
+    border: 3px solid #b2a49b;
+    margin-top: 20px;
+    margin-left: 5%;
+}
+th, td {
+    padding: 7px;
+    text-align: left;
+}
+th{ 
+    background-color: #b2a49b80;
+}
+
+.main{
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    color: black;
+}
+
